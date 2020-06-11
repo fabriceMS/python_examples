@@ -237,6 +237,34 @@ def betterBarChart():
     #plt.savefig('hist2.png', dpi=300, bbox_inches='tight')
     plt.show()
 
+
+
+def stackPlot():
+    
+    plt.style.use('fivethirtyeight')
+
+    years = [2017, 2018, 2019, 2020]
+    server1 = [2, 2, 4, 5]
+    server2 = [2, 3, 4, 6]
+    server3 = [2, 4, 2, 10]
+
+    labels = ['server1', 'server2', 'server3']
+    colors = ['#edf492','#efb960','#ee91bc']
+
+
+    plt.stackplot(years, server1, server2, server3, labels=labels, colors=colors)
+    
+    plt.legend(loc='upper left')
+
+    plt.title("Stack Plot Example")
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+
+
 def howCounterWorks():
     c = Counter(['Python', 'Java'])
     print (c)
@@ -253,6 +281,6 @@ def howCounterWorks():
 
 
 if __name__ == "__main__":
-    betterBarChart()
+    stackPlot()
 
 
