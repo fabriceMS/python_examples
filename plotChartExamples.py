@@ -243,22 +243,94 @@ def stackPlot():
     
     plt.style.use('fivethirtyeight')
 
+    # Data
     years = [2017, 2018, 2019, 2020]
     server1 = [2, 2, 4, 5]
     server2 = [2, 3, 4, 6]
     server3 = [2, 4, 2, 10]
 
+    # Parameters for stack plot
     labels = ['server1', 'server2', 'server3']
     colors = ['#edf492','#efb960','#ee91bc']
 
 
+    # Initialise and display stack plot
     plt.stackplot(years, server1, server2, server3, labels=labels, colors=colors)
     
-    plt.legend(loc='upper left')
+    #plt.legend(loc='upper left')
+    plt.legend(loc=(0.07,0.75))
 
     plt.title("Stack Plot Example")
     plt.tight_layout()
     plt.show()
+
+
+
+def fill_between():
+    data = pd.read_csv('data_fill.csv')
+
+    ages = data['Age']
+    dev_salaries = data['All_Devs']
+    py_salaries = data['Python']
+    js_salaries = data['JavaScript']
+
+    plt.plot(ages, dev_salaries, color='#444444',
+            linestyle='--', label='All Devs')
+
+    plt.plot(ages, py_salaries, label='Python')
+
+    overall_median = 57287
+
+    plt.fill_between(ages, py_salaries, dev_salaries,
+                    where=(py_salaries > dev_salaries),
+                    interpolate=True, alpha=0.25, label='Above Avg')
+
+    plt.fill_between(ages, py_salaries, dev_salaries,
+                    where=(py_salaries <= dev_salaries),
+                    interpolate=True, color='red', alpha=0.25, label='Below Avg')
+
+    plt.legend()
+
+    plt.title('Median Salary (USD) by Age')
+    plt.xlabel('Ages')
+    plt.ylabel('Median Salary (USD)')
+
+    plt.tight_layout()
+
+    plt.show()
+
+
+
+def historgram():
+
+    # Define style
+    plt.style.use('Solarize_Light2')
+
+    # Read data from csv using panda dataFrame
+    data = pd.read_csv('data_Ages.csv')
+    ids = data['Responder_id']
+    ages = data['Age']
+
+    # Define the number of bins (number of histogram. Define the values in the axis)
+    bins = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+    plt.hist(ages, bins=bins, edgecolor='black')
+    #plt.hist(ages, bins=bins, edgecolor='black', log=True)
+    
+    median_age = 29
+    color = '#fc4f30'
+    plt.legend()
+
+    plt.axvline(median_age, color=color, label='Age Median', linewitdh=2)
+    
+    
+    
+    plt.title('Age of the responders')
+
+    plt.tight_layout()
+
+    plt.show()
+
 
 
 
@@ -281,6 +353,7 @@ def howCounterWorks():
 
 
 if __name__ == "__main__":
-    stackPlot()
+    print(plt.style.available)
+    historgram()
 
 
