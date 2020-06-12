@@ -1,6 +1,9 @@
 import pandas as pd
+import random
+from itertools import count
 from datetime import datetime, timedelta
 from matplotlib import pyplot as plt
+from matplotlib.animation import FuncAnimation
 from matplotlib import dates as mpl_dates
 
 
@@ -41,5 +44,31 @@ def plot_time_serie():
     plt.show()
 
 
+
+# Read CSV File and define plot
+def animate(i):
+    data = pd.read_csv('live.csv')
+    x_values = data['Responder_id']
+    y_values = data['Age']
+
+    # Clear Axis
+    plt.cla()
+    plt.plot(x_values, y_values)
+    plt.tight_layout()
+
+def plot_live_data():
+    plt.style.use('seaborn-dark-palette')
+
+
+    # Run the animate function every 1000ms (every seconds) --> This will plot updated values
+    ani = FuncAnimation(plt.gcf(), animate, interval=1000)
+
+    # Automatic pading
+    plt.tight_layout()
+
+    # Show plot
+    plt.show()
+
 if __name__ == "__main__":
-    plot_time_serie()
+    #print(plt.style.available)
+    plot_live_data()
